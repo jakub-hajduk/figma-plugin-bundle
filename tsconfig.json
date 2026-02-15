@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "lib": ["es6", "DOM"],
+    "strict": true,
+    "moduleResolution": "Bundler",
+    "module": "ESNext",
+    "verbatimModuleSyntax": true,
+    "noEmit": true,
+    "skipLibCheck": true
+  },
+  "include": ["./src/**/*"]
+}
