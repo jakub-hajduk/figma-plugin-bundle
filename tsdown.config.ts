@@ -13,5 +13,5 @@ export default defineConfig({
     sourcemap: true,
   },
   target: 'esnext',
-  external: ['figwire']
+  external: ['figwire'],
 });
