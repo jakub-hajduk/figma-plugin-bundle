@@ -1,5 +1,6 @@
 {
   "name": "figstack",
+  "private": false,
   "version": "0.0.2",
   "type": "module",
   "description": "Figstack is a framework-agnostic, Vite-powered build tool for Figma plugins development. It abstracts postMessage plumbing so you can import and call code-side logic like standard UI functions.",
@@ -9,7 +10,6 @@
   "scripts": {
     "dev": "tsdown --watch",
     "build": "tsdown",
-    "test": "tsx ./scripts/test-runner.ts",
     "check": "biome check",
     "fix": "biome check --fix",
     "release": "pnpm run fix && pnpm run build && changelogen --release --push --publish"
@@ -29,10 +29,19 @@
     "@types/node": "^22.13.4",
     "changelogen": "^0.5.7",
     "dotenv": "^16.4.7",
-    "glob": "^11.0.1",
     "tsdown": "^0.20.3",
     "tsx": "^4.19.2",
     "typescript": "^5.7.3"
+  },
+  "dependencies": {
+    "citty": "^0.2.1",
+    "jiti": "^2.6.0",
+    "magicast": "^0.5.2",
+    "vite-plugin-singlefile": "^2.3.0"
+  },
+  "peerDependencies": {
+    "figwire": "^0.0.3",
+    "vite": "^7.3.1"
   },
   "files": [
     "dist"
@@ -47,16 +56,6 @@
       "require": "./dist/cli.cjs"
     },
     "./package.json": "./package.json"
-  },
-  "dependencies": {
-    "citty": "^0.2.1",
-    "jiti": "^2.6.0",
-    "magicast": "^0.5.2",
-    "vite-plugin-singlefile": "^2.3.0"
-  },
-  "peerDependencies": {
-    "figwire": "^0.0.3",
-    "vite": "^7.3.1"
   },
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
