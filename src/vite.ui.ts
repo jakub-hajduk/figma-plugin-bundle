@@ -1,7 +1,10 @@
 import { resolve } from 'node:path';
 import { build, defineConfig } from 'vite';
 import { viteSingleFile } from 'vite-plugin-singlefile';
-import type { FigmaPluginBundleContext, FigmaPluginBundleOptions } from './build';
+import type {
+  FigmaPluginBundleContext,
+  FigmaPluginBundleOptions,
+} from './build';
 import { figwireTransformUi } from './plugin/figwire-transform-ui.plugin';
 
 export async function buildUi(context: FigmaPluginBundleContext) {
