@@ -2,10 +2,9 @@ import { resolve } from 'node:path';
 import { build, defineConfig } from 'vite';
 import { viteSingleFile } from 'vite-plugin-singlefile';
 import type {
-  FigmaPluginBundleContext,
-  FigmaPluginBundleOptions,
 } from './build';
 import { figwireTransformUi } from './plugin/figwire-transform-ui.plugin';
+import type { FigmaPluginBundleContext, FigmaPluginBundleOptions } from './types'
 
 export async function buildUi(context: FigmaPluginBundleContext) {
   const isProd = process.env.NODE_ENV === 'production';
@@ -29,7 +28,7 @@ export async function buildUi(context: FigmaPluginBundleContext) {
       cssMinify: isProd,
       minify: isProd,
       outDir: resolve(process.cwd(), finalOptions.outDir),
-      ...(finalOptions.watch ? { watch: { include: ['**/*'] } } : null),
+      ...(finalOptions.watch ? { watch: { include: ['**/*', './figma-plugin-bundle.config.ts', './figma-plugin-bundle.config.js', './package.json'] } } : null),
     },
     define: {
       'process.env.NODE_ENV': JSON.stringify(

@@ -1,27 +1,26 @@
 import { parseModule } from 'magicast';
 import type { Plugin } from 'vite';
-import type { FigmaPluginBundleContext } from '../build';
+import type { FigmaPluginBundleContext } from '../types'
 
 export function figwireTransformCode(
   context: FigmaPluginBundleContext,
 ): Plugin {
   const finalOptions = context.options;
-
-  const VIRTUAL_PLUGIN_SIDE_NAME = 'virtual:figwire-transform-code';
-  const RESOLVED_VIRTUAL_PLUGIN_SIDE_NAME = `\0${VIRTUAL_PLUGIN_SIDE_NAME}`;
+  const VIRTUAL_CODE_SIDE_NAME = 'virtual:figwire-transform-code';
+  const RESOLVED_VIRTUAL_CODE_SIDE_NAME = `\0${VIRTUAL_CODE_SIDE_NAME}`;
   const codeFiles = context.codeFiles.toArray();
-  const VIRTUAL_PLUGIN_SIDE = codeFiles.map((f) => `import '${f}';`).join('\n');
+  const VIRTUAL_CODE_SIDE = codeFiles.map((f) => `import '${f}';`).join('\n');
 
   return {
     name: 'vite:figwire-transform-code',
     enforce: 'post',
     resolveId(id) {
-      if (id === VIRTUAL_PLUGIN_SIDE_NAME)
-        return RESOLVED_VIRTUAL_PLUGIN_SIDE_NAME;
+      if (id === VIRTUAL_CODE_SIDE_NAME)
+        return RESOLVED_VIRTUAL_CODE_SIDE_NAME;
     },
     load(id) {
-      if (id === RESOLVED_VIRTUAL_PLUGIN_SIDE_NAME)
-        return parseModule(VIRTUAL_PLUGIN_SIDE).generate();
+      if (id === RESOLVED_VIRTUAL_CODE_SIDE_NAME)
+        return parseModule(VIRTUAL_CODE_SIDE).generate();
     },
     transform(code, id) {
       const moduleInfo = this.getModuleInfo(id);
@@ -31,7 +30,7 @@ export function figwireTransformCode(
 
         mod.imports.$prepend({
           imported: '',
-          from: VIRTUAL_PLUGIN_SIDE_NAME,
+          from: VIRTUAL_CODE_SIDE_NAME,
         });
 
         return mod.generate();

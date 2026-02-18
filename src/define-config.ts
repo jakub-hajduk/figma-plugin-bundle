@@ -1,5 +1,13 @@
-import type { FigmaPluginBundleOptions } from './build';
+import type { FigmaPluginBundleOptions } from './types'
 
-export function defineConfig(config?: Partial<FigmaPluginBundleOptions>) {
+export type RecursivePartial<Type> = {
+  [Prop in keyof Type]?: Type[Prop] extends (infer U)[]
+    ? RecursivePartial<U>[]
+    : Type[Prop] extends object | undefined
+      ? RecursivePartial<Type[Prop]>
+      : Type[Prop];
+};
+
+export function defineConfig(config?: RecursivePartial<FigmaPluginBundleOptions>) {
   return config;
 }

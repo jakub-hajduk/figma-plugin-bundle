@@ -1,11 +1,12 @@
 import { dirname, resolve } from 'node:path';
 import { parseModule } from 'magicast';
 import type { Plugin } from 'vite';
-import type { FigmaPluginBundleContext } from '../build';
+import type { FigmaPluginBundleContext } from '../types'
 
-export function figwireTransformUi(context: FigmaPluginBundleContext): Plugin {
+export function figwireTransformUi(
+  context: FigmaPluginBundleContext
+): Plugin {
   const finalOptions = context.options;
-
   const VIRTUAL_UI_SIDE_NAME = 'virtual:figwire-transform-ui';
   const RESOLVED_VIRTUAL_UI_SIDE_NAME = `\0${VIRTUAL_UI_SIDE_NAME}`;
   const VIRTUAL_UI_SIDE = `import { client } from 'figwire/ui';\nexport const mainApiClient = client();`;

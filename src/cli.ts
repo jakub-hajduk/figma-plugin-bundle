@@ -4,7 +4,8 @@ import { existsSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { defineCommand, runMain } from 'citty';
 import { createJiti } from 'jiti';
-import { type FigmaPluginBundleOptions, build } from './build';
+import { build } from './build';
+import type { FigmaPluginBundleOptions } from './types'
 
 const main = defineCommand({
   meta: {
